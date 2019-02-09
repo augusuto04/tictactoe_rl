@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MENU</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+    <div id="game-area">
+        <div id="game-title">Tic-Tac-Toe</div>
+        <div id="grid-area">
+            <div class="grid-label label-top-left"></div>
+            <div class="grid-label label-top"><span>a</span></div>
+            <div class="grid-label label-top"><span>b</span></div>
+            <div class="grid-label label-top"><span>c</span></div>
+            <div class="grid-label label-left"><span>1</span></div>
+            <div class="board-grid" data-row-idx="0" data-col-idx="0"></div>
+            <div class="board-grid" data-row-idx="0" data-col-idx="1"></div>
+            <div class="board-grid" data-row-idx="0" data-col-idx="2"></div>
+            <div class="grid-label label-left"><span>2</span></div>
+            <div class="board-grid" data-row-idx="1" data-col-idx="0"></div>
+            <div class="board-grid" data-row-idx="1" data-col-idx="1"></div>
+            <div class="board-grid" data-row-idx="1" data-col-idx="2"></div>
+            <div class="grid-label label-left"><span>3</span></div>
+            <div class="board-grid" data-row-idx="2" data-col-idx="0"></div>
+            <div class="board-grid" data-row-idx="2" data-col-idx="1"></div>
+            <div class="board-grid" data-row-idx="2" data-col-idx="2"></div>
+        </div>
+        <div id="info-area">
+            <div id="info-message-area"><span id="message-span">Game Start!</span></div>
+            <div id="info-player-area">
+                <div class="player-label"><span>Player1</span></div>
+                <div class="player-label-split"></div>
+                <div class="player-label"><span>Player2</span></div>
+                <div class="player-select">
+                    <select id="player1-select" class="form-control">
+                        <option value="0">人間</option>
+                        <option value="1">コンピュータ(ランダム)</option>
+                        <option value="2">コンピュータ(ε-greedy)</option>
+                        <option value="3">コンピュータ(最大報酬)</option>
+                    </select>
+                </div>
+                <div class="player-split"><span>vs</span></div>
+                <div class="player-select">
+                    <select id="player2-select" class="form-control">
+                        <option value="0">人間</option>
+                        <option value="1">コンピュータ(ランダム)</option>
+                        <option value="2">コンピュータ(ε-greedy)</option>
+                        <option value="3">コンピュータ(最大報酬)</option>
+                    </select>
+                </div>
+            </div>
+            <input id="new-game-btn" class="btn btn-info" type="button" value="Start New Game">
+    <template id="circle-template">
+        <div class="circle">
+            <div class="inner-circle"></div>
+        </div>
+    </template>
+    <template id="cross-template">
+        <div class="cross cross-1"></div>
+        <div class="cross cross-2"></div>
+    </template>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script type="text/javascript" src="tictactoe/Utils.js"></script>
+<script type="text/javascript" src="tictactoe/action.js"></script>
+<script type="text/javascript" src="tictactoe/evaluator.js"></script>
+<script type="text/javascript" src="tictactoe/policy.js"></script>
+<script type="text/javascript" src="tictactoe/state.js"></script>
+<script type="text/javascript" src="tictactoe/agent.js"></script>
+<script type="text/javascript" src="index.js"></script>
+</html>

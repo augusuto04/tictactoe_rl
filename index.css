@@ -1,0 +1,138 @@
+#game-area {
+    width: 700px;
+    height: 400px;
+    background-color: #f7f7f7;
+}
+
+#game-title {
+    width: 700px;
+    height: 30px;
+    background-color: #3b5998;
+    color: white;
+}
+#grid-area {
+    width: 323px;
+    height: 323px;
+    float: left;
+}
+
+#info-area {
+    width: 377px;
+    height: 323px;
+    float: left;
+    padding: 5px;
+    background-color:   #b8dbd3;
+}
+
+#grid-area > div.grid-label {
+    float: left;
+    margin: 1px;
+    background-color: #8b9dc3;
+    text-align: center;
+}
+
+#grid-area > div.label-top-left {
+    width: 15px;
+    height: 15px;
+}
+
+#grid-area > div.label-top {
+    width: 100px;
+    height: 15px;
+    line-height: 15px;
+}
+
+#grid-area > div.label-left {
+    width: 15px;
+    height: 100px;
+    line-height: 100px;
+}
+
+#grid-area > div.board-grid {
+    width: 100px;
+    height: 100px;
+    background-color: #dfe3ee;
+    float: left;
+    margin: 1px;
+}
+
+#grid-area > div.winning-grid {
+    background-color: #f7e7b4;
+}
+
+#grid-area > div.board-grid > div.circle {
+    width: 60px;
+    height: 60px;
+    margin: 20px;
+    background-color: black;
+    float: left;
+    border-radius: 50%;
+}
+
+#grid-area > div.board-grid > div.circle > div.inner-circle {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    background-color: #dfe3ee;
+    float: left;
+    border-radius: 50%;
+}
+
+#grid-area > div.winning-grid > div.circle > div.inner-circle {
+    background-color: #f7e7b4;
+}
+
+#grid-area > div.board-grid > div.cross {
+    width: 70px;
+    height: 10px;
+    background-color: black;
+    display: block;
+    margin-top: 45px;
+    margin-left: 15px;
+    position: absolute;
+}
+
+#grid-area > div.board-grid > div.cross-1 {
+    transform: rotate(-45deg)
+}
+
+#grid-area > div.board-grid > div.cross-2 {
+    transform: rotate(45deg)
+}
+
+#info-message-area {
+    width: 367px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 3px;
+    background-color: white;
+}
+
+#info-player-area {
+    width: 367px;
+    height: 60px;
+}
+
+#info-player-area > div.player-select {
+    width: 150px;
+    height: 40px;
+    float: left;
+}
+
+#info-player-area > div.player-label {
+    width: 150px;
+    height: 20px;
+    float: left;
+}
+
+#info-player-area > div.player-label-split {
+    width: 67px;
+    height: 20px;
+    float: left;
+}
+
+#info-player-area > div.player-split {
+    width: 67px;
+    height: 40px;
+    float: left;
+}
