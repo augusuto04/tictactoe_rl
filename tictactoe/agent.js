@@ -5,13 +5,16 @@ class Agent {
         this.player2Policy = player2Policy;
     }
     getAction(state) {
+        let action = null;
         if (state.nextPlayer === Utils.PLAYER1) {
-            return this.player1Policy(state);
+            action = this.player1Policy.getAction(state);
         } else {
-            return this.player2Policy(state);
+            action = this.player2Policy.getAction(state);
         }
+        console.log(`computer's hand is ${Utils.kifu(action.rowIdx, action.colIdx)}`);
+        return action;
     }
     tellReward(reward, state, action) {
-        this.iterateQ(reward, state, action);
+        this.evaluator.iterateQ(reward, state, action);
     }
 }

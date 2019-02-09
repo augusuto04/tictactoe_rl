@@ -7,11 +7,16 @@ class Evaluator {
     }
 
     getQ(state, action) {
-        const nextState = state.nextState(action);
-        if (!(nextState.encode in this.values)) {
-            this.values[nextState.encode] = Utils.DEFAULT_VALUE;
+        const key = this.constructor.encode(state, action);
+        if (!(key in this.values)) {
+            this.values[key] = Utils.DEFAULT_VALUE;
         }
-        return this.values[nextState.encode];
+        return this.values[key];
+    }
+
+    setQ(state, action, value) {
+        const key = this.constructor.encode(state, action);
+        this.values[key] = value;
     }
 
     iterateQ(reward, state, action) {
@@ -26,7 +31,12 @@ class Evaluator {
             updatedQ = q + this.alpha *(reward - q);
         }
 
-        this.values[nextState.encode] = updatedQ;
+        this.setQ(state, action, updatedQ);
         return updatedQ;
+    }
+
+    static encode(state, action) {
+        const nextState = state.nextState(action);
+        return nextState.encode;
     }
 }

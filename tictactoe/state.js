@@ -69,7 +69,7 @@ class State {
     }
 
     get isTieGame() {
-        return !this.hasWonGame && this.emptyGridCount == 9;
+        return !this.hasWonGame && this.emptyGridCount == 0;
     }
 
     get emptyGridCount() {

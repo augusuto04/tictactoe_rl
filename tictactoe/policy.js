@@ -9,14 +9,16 @@ class Policy {
 
 class RandomPolicy extends Policy {
     constructor() {
+        super();
     }
 
     getAction(state) {
-        return this.getRandomAction(state.nextActions);
+        return this.getRandomAction(state);
     }
 
-    getRandomAction(actions) {
-        return actions[Math.floor(Math.random() * nextActions.length)];
+    getRandomAction(state) {
+        const actions = state.nextActions;
+        return actions[Math.floor(Math.random() * actions.length)];
     }
 }
 
@@ -32,7 +34,7 @@ class BestHandPolicy extends Policy {
     }
 
     getBestAction(state) {
-        return state.nextPlayer == Utils.PLAYER1 ?
+        return state.nextPlayer === Utils.PLAYER1 ?
             this.getActionWithMaxValue(state) : this.getActionWithMinValue(state);
     }
 
@@ -73,14 +75,19 @@ class EpsilonGreedy extends BestHandPolicy {
     }
 
     getAction(state) {
+        let action = null;
         if (Math.random() > this.epsilon) {
-            return this.getBestAction(state);
+            action = this.getBestAction(state);
+            console.log(`[ε-greedy] best hand: ${Utils.kifu(action.rowIdx, action.colIdx)}`);
         } else {
-            return this.getRandomAction(state);
+            action = this.getRandomAction(state);
+            console.log(`[ε-greedy] random hand: ${Utils.kifu(action.rowIdx, action.colIdx)}`);
         }
+        return action;
     }
 
-    getRandomAction(actions) {
-        return actions[Math.floor(Math.random() * nextActions.length)];
+    getRandomAction(state) {
+        const actions = state.nextActions;
+        return actions[Math.floor(Math.random() * actions.length)];
     }
 }

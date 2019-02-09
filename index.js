@@ -89,11 +89,9 @@ function logNextActions(state) {
 function doAction(action) {
     if (s.isValidAction(action)) {
         if (s.nextPlayer === Utils.PLAYER1) {
-            UI.markGridAsCircle(rowIdx, colIdx);
-            UI.setMessage("Player 2's turn!");
+            UI.markGridAsCircle(action.rowIdx, action.colIdx);
         } else {
-            UI.markGridAsCross(rowIdx, colIdx);
-            UI.setMessage("Player 1's turn!");
+            UI.markGridAsCross(action.rowIdx, action.colIdx);
         }
         const nextState = s.nextState(action);
         logNextActions(nextState);
@@ -113,14 +111,23 @@ function doAction(action) {
         } else {
             e.iterateQ(Utils.DEFAULT_VALUE, s, action);
             s = nextState;
+            if (s.nextPlayer === Utils.PLAYER1) {
+                UI.setMessage("Player 1's turn!");
+                if (isPlayer1Computer) {
+                    doAction(agent.getAction(s));
+                }
+            } else {
+                UI.setMessage("Player 2's turn!");
+                if (isPlayer2Computer) {
+                    doAction(agent.getAction(s));
+                }
+            }
         }
     }
 }
 
 let e  = new Evaluator(0.2, 0.2);
-let p1 = new Policy();
-let p2 = new Policy();
-let a  = new Agent(p1, p2);
+let agent  = null;
 let s  = null;
 
 let isPlayer1Computer = null;
@@ -132,6 +139,8 @@ document.getElementById('new-game-btn').onclick = function() {
     s = new State(Utils.DEFAULT_STATE);
     const p1 = document.getElementById('player1-select').value;
     const p2 = document.getElementById('player2-select').value;
+    let p1Policy = null;
+    let p2Policy = null;
 
     switch (p1) {
         case '0':
@@ -139,15 +148,15 @@ document.getElementById('new-game-btn').onclick = function() {
             break;
         case '1':
             isPlayer1Computer = true;
-            p1 = new RandomPolicy();
+            p1Policy = new RandomPolicy();
             break;
         case '2':
             isPlayer1Computer = true;
-            p1 = new EpsilonGreedy(e);
+            p1Policy = new EpsilonGreedy(e, 0.2);
             break;
         case '3':
             isPlayer1Computer = true;
-            p1 = new EpsilonGreedy(e, 0.2);
+            p1Policy = new BestHandPolicy(e);
             break;
         default:
             console.log('dame');
@@ -159,24 +168,28 @@ document.getElementById('new-game-btn').onclick = function() {
             break;
         case '1':
             isPlayer2Computer = true;
-            p1 = new RandomPolicy();
+            p2Policy = new RandomPolicy();
             break;
         case '2':
             isPlayer2Computer = true;
-            p1 = new EpsilonGreedy(e);
+            p2Policy = new EpsilonGreedy(e, 0.2);
             break;
         case '3':
             isPlayer2Computer = true;
-            p1 = new EpsilonGreedy(e, 0.2);
+            p2Policy = new BestHandPolicy(e);
             break;
         default:
             console.log('dame');
     }
-    a = new Agent(p1, p2);
+    agent = new Agent(e, p1Policy, p2Policy);
     console.log(`Player1: ${isPlayer1Computer}, Player2: ${isPlayer2Computer}`);
     UI.clearGrid();
     UI.lockPlayerSettings();
-    UI.setMessage("New game started! Player 1's turn. Click on the grid.");
+    if (isPlayer1Computer) {
+        doAction(agent.getAction(s));
+    } else {
+        UI.setMessage("New game started! Player 1's turn. Click on the grid.");
+    }
 };
 
 let boardGrids = document.querySelectorAll('div.board-grid');
@@ -188,7 +201,7 @@ for (let i = 0; i < boardGrids.length; i++) {
         busyFlag = true;
         const rowIdx = this.dataset.rowIdx;
         const colIdx = this.dataset.colIdx;
-        console.log(`Grid(${rowIdx}, ${colIdx}) clicked`);
+        console.log(`${Utils.kifu(rowIdx, colIdx)} clicked`);
         doAction(new Action(rowIdx, colIdx, s.nextPlayer));
         busyFlag = false;
     };
